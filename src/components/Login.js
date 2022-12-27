@@ -1,48 +1,45 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-import { Grid,Paper, Avatar, TextField, Button, Typography,Link } from '@mui/material'
+import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const Login=()=>{
+import { useSignIn } from 'react-auth-kit';
 
-    const history = useNavigate();
 
-    const [inpval, setInpval] = useState({
+const Login = () => {
+
+    const navigate  = useNavigate()
+    const signIn = useSignIn()
+
+    const [credentials, setCredentials] = useState({
         email: "",
         password: ""
     })
 
-    const [data, setData] = useState([]);
-    console.log(inpval);
 
-    const getdata = (e) => {
-        // console.log(e.target.value);
+    console.log(credentials);
 
+    const handleCredentials = (e) => {
 
         const { value, name } = e.target;
-        // console.log(value,name);
 
-
-        setInpval(() => {
+        setCredentials(() => {
             return {
-                ...inpval,
+                ...credentials,
                 [name]: value
             }
         })
 
     }
 
-    const addData = (e) => {
+    const login = async (e) => {
         e.preventDefault();
 
-        const getuserArr = localStorage.getItem("usertodo");
-        console.log(getuserArr);
-
-        const { email, password } = inpval;
+        const { email, password } = credentials;
         if (email === "") {
             toast.error('email field is requred', {
                 position: "top-center",
@@ -61,75 +58,75 @@ const Login=()=>{
             });
         } else {
 
-            if (getuserArr && getuserArr.length) {
-                const userdata = JSON.parse(getuserArr);
-                console.log(userdata[0].name);
-              
-if(userdata[0].email === email  && userdata[0].password === password ) {
+            try {
+                const res = await axios.post(' https://ac35-103-62-140-116.in.ngrok.io/api/user/login', {
+                    email,
+                    password
+                })
 
-    alert("Login Successfully");
-    history("/details")
-}
-                // if (userlogin.length === 0) {
-                //     alert("invalid details")
-                // } else {
-                //     console.log("user login succesfulyy");
-
-                //     localStorage.setItem("user_login", JSON.stringify(userlogin))
-
-                //     history("/details")
-                // }
+                console.log(res);
+                if(res.data.email){
+                    signIn(
+                        {
+                            token: res.data.token,
+                            expiresIn:3600,
+                            tokenType: "Bearer",
+                            authState: res.data,
+                            
+                        }
+                    )
+                    console.log('success')
+                    navigate ('/')
+                    console.log('after navigate')
+                }else {
+                    toast.error('Invalid redentials', {
+                        position: "top-center",
+                    });
+                }
+            } catch (err) {
+                 alert(err.message);
             }
+
+
+
         }
 
     }
 
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
 
-    // const LoginHandler = async () => {
-
-    //  const response= await axios.post('https://1534-103-62-140-118.in.ngrok.io/api/user/login',{
-    //         email,
-    //         password
-    //         })
-       
-    //         console.log(response);
-    //  };
-
-    const paperStyle={padding: '30px 20px', width: 300, margin: "20px auto"}
-    const avatarStyle={backgroundColor:'#1bbd7e'}
-    const btnstyle={margin:'8px 0'}
+    const paperStyle = { padding: '30px 20px', width: 300, margin: "20px auto" }
+    const avatarStyle = { backgroundColor: '#1bbd7e' }
+    const btnstyle = { margin: '8px 0' }
     const marginStyle = { marginTop: 10 }
-    return(
+    return (
         <Grid>
             <Paper elevation={10} style={paperStyle}>
                 <Grid align='center'>
-                     <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
+                    <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
                     <h2>Sign In</h2>
                 </Grid>
                 {/* <TextField label='Username' placeholder='Enter username' fullWidth required value={email} onChange={(e)=>{setEmail(e.target.value)}} style={marginStyle}/> */}
-                <TextField label='Username' placeholder='Enter username' fullWidth required name='email' onChange={getdata} style={marginStyle}/>
-                <TextField label='Password' placeholder='Enter password' type='password' name='password' onChange={getdata} fullWidth required style={marginStyle}/>
+                <TextField label='Username' placeholder='Enter username' fullWidth required name='email' onChange={handleCredentials} style={marginStyle} />
+                <TextField label='Password' placeholder='Enter password' type='password' name='password' onChange={handleCredentials} fullWidth required style={marginStyle} />
                 <FormControlLabel
                     control={
-                    <Checkbox
-                        name="checkedB"
-                        color="primary"
-                    />
+                        <Checkbox
+                            name="checkedB"
+                            color="primary"
+                        />
                     }
                     label="Remember me"
-                 />
-                <Button type='submit' onClick={addData} color='primary' variant="contained" style={btnstyle} fullWidth>Sign in</Button>
+                />
+                <Button type='submit' onClick={login} color='primary' variant="contained" style={btnstyle} fullWidth>Sign in</Button>
                 <Typography >
-                     <Link href="#" >
+                    <Link href="#" >
                         Forgot password ?
-                </Link>
+                    </Link>
                 </Typography>
                 <Typography > Do you have an account ?
-                     <Link href="/Signup" >
-                        Sign Up 
-                </Link>
+                    <Link href="/Signup" >
+                        Sign Up
+                    </Link>
                 </Typography>
             </Paper>
             <ToastContainer />

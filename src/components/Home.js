@@ -1,58 +1,23 @@
 import React, { useState } from 'react'
-import Paper from '@mui/material/Paper';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Login from './Login'
-import Signup from './Signup' 
-const Home=()=>{
-const [value,setValue]=useState(0)
-const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+import { useSignOut } from 'react-auth-kit'
+import { useNavigate } from 'react-router-dom'
 
-  const paperStyle={width:340,margin:"20px auto"}
-  function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-  
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box>
-            <Typography>{children}</Typography>
-          </Box>
-        )}
-      </div>
-    );
+
+const Home=()=>{
+  const signOut = useSignOut()
+  const navigate = useNavigate()
+  const handleSignOut=()=>{
+    signOut()
+    navigate('/login')
   }
   
     return (
-        <Paper elevation={20} style={paperStyle}>
-        <Tabs
-          value={value}
-          indicatorColor="primary"
-          textColor="primary"
-          onChange={handleChange}
-          aria-label="disabled tabs example"
-        >
-          <Tab label="Sign In" />
-         
-          <Tab label="Sign Up" />
-        </Tabs>
-        <TabPanel value={value} index={0}>
-       <Login handleChange={handleChange}/>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-      <Signup/>
-      </TabPanel>
-      </Paper>
+       <div style={{display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
+         <h2>
+          Welcome to Dashbaord 
+         </h2>
+         <button onClick={handleSignOut}>Sign Out</button>
+       </div>
       
     )
 }
