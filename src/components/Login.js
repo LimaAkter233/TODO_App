@@ -123,7 +123,7 @@ const Login = () => {
                         Forgot password ?
                     </Link>
                 </Typography>
-                <Typography > Do you have an account ?
+                <Typography > Don't have an account ?
                     <Link href="/Signup" >
                         Sign Up
                     </Link>
