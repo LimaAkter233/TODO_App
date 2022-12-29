@@ -41,7 +41,7 @@ const Signup = () => {
     const addRegister = async(e) => {
         e.preventDefault();
 
-        const { name, email, date, password, confirmPassword } = inpval;
+        const { name, email, password, confirmPassword } = inpval;
 
         if (name === "") {
             toast.error(' name field is requred!',{
@@ -55,11 +55,9 @@ const Signup = () => {
              toast.error('plz enter valid email addres',{
                 position: "top-center",
             });
-        } else if (date === "") {
-             toast.error('date field is requred',{
-                position: "top-center",
-            });
-        } else if (password === "") {
+        } 
+    
+         else if (password === "") {
              toast.error('password field is requred',{
                 position: "top-center",
             });
