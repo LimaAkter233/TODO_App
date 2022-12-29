@@ -43,6 +43,11 @@ const Todo = () => {
                                                 variant='outlined'
                                                 value={title}
                                                 onChange={(e) => { setTitle(e.target.value) }}
+                                                sx={{"& .MuiOutlinedInput-root": {
+                                                        "&.Mui-focused fieldset": {
+                                                          borderColor: "black"
+                                                        }
+                                                      }}}
 
                                         />
                                 </Grid>
