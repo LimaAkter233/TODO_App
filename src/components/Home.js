@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Header from '../components/Header'
-
+import Todo from './Todo'
 const Home=()=>{
   // const signOut = useSignOut()
   // const navigate = useNavigate()
@@ -16,7 +16,7 @@ const Home=()=>{
           <h2>
             Welcome to Dashbaord 
           </h2>
-
+          <Todo/>
  
         </div>
        </>
