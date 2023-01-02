@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Grid, TextField, MenuItem } from '@mui/material'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -7,34 +7,27 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const Todo = () => {
-
+        
         const [date, setDate] = useState(new Date())
         const [title, setTitle] = useState('')
         const [description, setDescription] = useState('')
         const [priority, setPriority] = useState('')
-
-        // const [taskItem, setTaskItem] = useState({
-        //         date: new Date(),
-        //         title: "",
-        //         description: "",
-        //         confirmPassword: "",
-        //        // priority: ""
-        //     })
-
-        //     const [priority, setPriority] = useState('');
-        //     useEffect(() => {
-        //       localStorage.setItem("priority", priority ? priority : '')
-        //     }, [priority]);
-
-        //const [todoData,setTodoData] = useState([]);
+        const [open, setOpen] = useState(false);
+       
 
         let today = new Date()
+        
+        // let tasks = JSON.parse(localStorage.getItem('tasks'))
+        // useEffect(()=>{
+        //     if(tasks){
+        //         tasks = JSON.parse(localStorage.getItem('tasks'))
+        //     }
+        // },[tasks])
 
 
         const addTasks = async (e) => {
@@ -47,7 +40,7 @@ const Todo = () => {
                         return
 
 
-                } else if (description ==='') {
+                } else if (description === '') {
                         toast.error("Please enter a description")
                         return
 
@@ -69,15 +62,22 @@ const Todo = () => {
                         console.log("To do data added succesfully");
                         let task = { title, description, priority, date }
                         let tasks = []
-                        tasks.push(task)
-                        localStorage.setItem("tasks", JSON.stringify(tasks));
+                        if (JSON.parse(localStorage.getItem("tasks"))?.length) {
+                                tasks = JSON.parse(localStorage.getItem("tasks"))
+                                tasks.push(task)
+                                localStorage.setItem("tasks", JSON.stringify(tasks));
+                        } else {
+                                tasks.push(task)
+                                localStorage.setItem("tasks", JSON.stringify(tasks));
+                        }
+
                         toast.success('Task added successfully')
                         handleClose()
-
+                       
                 }
 
         }
-        const [open, setOpen] = useState(false);
+       
         //console.log(title, date, description, priority)
 
 

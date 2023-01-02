@@ -66,7 +66,7 @@ function Header() {
                 textDecoration: 'none',
               }}
             >
-              LOGO
+              TODO
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -122,7 +122,7 @@ function Header() {
                 textDecoration: 'none',
               }}
             >
-              LOGO
+              TODO
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
@@ -137,38 +137,12 @@ function Header() {
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Button onClick={handleSignOut} color="inherit" sx={{color:'white', border:'2px solid white'}}>
+              <Tooltip title="">
+                <Button onClick={handleSignOut} sx={{ p: 1, color:'white', border:'1px solid white' }}>
                     Logout
-                  </Button>
-                </IconButton>
+                </Button>
               </Tooltip>
-              {/* <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-
-                <MenuItem>
-                  <Typography textAlign="center">
-
-
-                  </Typography>
-                </MenuItem>
-
-              </Menu> */}
+              
             </Box>
           </Toolbar>
         </Container>

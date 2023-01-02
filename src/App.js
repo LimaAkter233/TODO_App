@@ -8,7 +8,7 @@ import Details from './components/Details';
 // import SignInOutContainer from './containers/index';
 import { Routes, Route } from "react-router-dom"
 import { RequireAuth } from 'react-auth-kit'
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme, responsiveFontSizes  } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 function App() {
@@ -21,9 +21,14 @@ function App() {
       }
     },
   });
+
+  let theme = createTheme()
+  
+  theme = responsiveFontSizes(theme)
+
   return (
 
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <Routes>
         <Route path='/' element={<RequireAuth loginPath='/login'>

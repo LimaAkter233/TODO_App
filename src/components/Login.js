@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@mui/material'
+import { Grid, Paper, Avatar, TextField, Button, Typography, Link, IconButton, InputAdornment, FormControl, InputLabel, OutlinedInput } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -8,17 +8,27 @@ import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSignIn } from 'react-auth-kit';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 const Login = () => {
 
-    const navigate  = useNavigate()
+    const navigate = useNavigate()
     const signIn = useSignIn()
 
     const [credentials, setCredentials] = useState({
         email: "",
         password: ""
     })
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
 
 
     console.log(credentials);
@@ -59,32 +69,32 @@ const Login = () => {
         } else {
 
             try {
-                const res = await axios.post('https://788d-103-62-140-116.in.ngrok.io/api/user/login', {
+                const res = await axios.post('https://b64f-103-62-140-116.in.ngrok.io/api/user/login', {
                     email,
                     password
                 })
 
                 console.log(res);
-                if(res.data.email){
+                if (res.data.email) {
                     signIn(
                         {
                             token: res.data.token,
-                            expiresIn:3600,
+                            expiresIn: 3600,
                             tokenType: "Bearer",
                             authState: res.data,
-                            
+
                         }
                     )
                     console.log('success')
-                    navigate ('/')
+                    navigate('/')
                     console.log('after navigate')
-                }else {
+                } else {
                     toast.error('Invalid redentials', {
                         position: "top-center",
                     });
                 }
             } catch (err) {
-                 alert(err.message);
+                alert(err.message);
             }
 
 
@@ -105,10 +115,40 @@ const Login = () => {
                     <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
                     <h2>Sign In</h2>
                 </Grid>
-                {/* <TextField label='Username' placeholder='Enter username' fullWidth required value={email} onChange={(e)=>{setEmail(e.target.value)}} style={marginStyle}/> */}
-                <TextField label='Username' placeholder='Enter username' fullWidth required name='email' onChange={handleCredentials} style={marginStyle} />
-                <TextField label='Password' placeholder='Enter password' type='password' name='password' onChange={handleCredentials} fullWidth required style={marginStyle} />
-                <FormControlLabel
+            
+                <TextField
+                    label='Username'
+                    placeholder='Enter username'
+                    fullWidth
+                    name='email'
+                    onChange={handleCredentials}
+                    style={marginStyle} />
+               
+
+                <FormControl sx={{ mt:2 }} variant="outlined">
+                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                    <OutlinedInput
+                        id="outlined-adornment-password"
+                        type={showPassword ? 'text' : 'password'}
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                >
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                        label="Password"
+                        name='password'
+                        onChange={handleCredentials}
+                    />
+                </FormControl>
+
+                {/* <FormControlLabel
                     control={
                         <Checkbox
                             name="checkedB"
@@ -116,7 +156,7 @@ const Login = () => {
                         />
                     }
                     label="Remember me"
-                />
+                /> */}
                 <Button type='submit' onClick={login} color='primary' variant="contained" style={btnstyle} fullWidth>Sign in</Button>
                 <Typography >
                     <Link href="#" >
