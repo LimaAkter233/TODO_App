@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 import { Grid, TextField, MenuItem } from '@mui/material'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -18,7 +19,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 const Todo = () => {
         
-        const [date, setDate] = useState(new Date())
+        const [deadline, setDeadline] = useState(new Date())
         const [title, setTitle] = useState('')
         const [description, setDescription] = useState('')
         const [priority, setPriority] = useState('')
@@ -54,29 +55,45 @@ const Todo = () => {
                         return
 
 
-                } else if (date === '') {
-                        toast.error("Please select a date")
+                } else if (deadline === '') {
+                        toast.error("Please select a deadline")
                         return
 
 
-                } else if (date < today) {
+                } else if (deadline < today) {
                         toast.error("Please select deadline at least one day above current date")
                         return
                 }
                 else {
                         console.log("To do data added succesfully");
-                        let task = { title, description, priority, date }
-                        let tasks = []
-                        if (JSON.parse(localStorage.getItem("tasks"))?.length) {
-                                tasks = JSON.parse(localStorage.getItem("tasks"))
-                                tasks.push(task)
-                                localStorage.setItem("tasks", JSON.stringify(tasks));
-                        } else {
-                                tasks.push(task)
-                                localStorage.setItem("tasks", JSON.stringify(tasks));
-                        }
+                        let task = { title, description, priority, deadline }
+                       // let tasks = []
 
-                        toast.success('Task added successfully')
+                        try {
+                                const config = {
+                                        headers: {
+                                            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTU0MThiYzMwNWFiNGJjMWMyNzZkYyIsImlhdCI6MTY3MjczNjgzMSwiZXhwIjoxNjc1MzI4ODMxfQ.HZw9_PuJXlyoUicfUSl1sTqRuFrXGK1Gg5uu3ZOV3vk`
+                                        }
+                                    }
+                                const res = await axios.post('https://0f3e-103-62-140-116.in.ngrok.io/api/todo', {
+                                        task
+                                },config)
+                
+                                console.log(res);
+
+                            } catch (err) {
+                                 alert(err.message);
+                            }
+                        // if (JSON.parse(localStorage.getItem("tasks"))?.length) {
+                        //         tasks = JSON.parse(localStorage.getItem("tasks"))
+                        //         tasks.push(task)
+                        //         localStorage.setItem("tasks", JSON.stringify(tasks));
+                        // } else {
+                        //         tasks.push(task)
+                        //         localStorage.setItem("tasks", JSON.stringify(tasks));
+                        // }
+
+                       // toast.success('Task added successfully')
                         handleClose()
                        
                 }
@@ -176,10 +193,10 @@ const Todo = () => {
                                                                 <DesktopDatePicker
                                                                         label="Deadline"
                                                                         inputFormat="MM/DD/YYYY"
-                                                                        value={date}
-                                                                        onChange={(newValue) => setDate(newValue)}
+                                                                        value={deadline}
+                                                                        onChange={(newValue) => setDeadline(newValue)}
                                                                         renderInput={(params) => <TextField {...params} fullWidth />}
-                                                                        minDate={date}
+                                                                        minDate={deadline}
                                                                 />
                                                         </LocalizationProvider>
 
