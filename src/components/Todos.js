@@ -6,6 +6,8 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import Container from '@mui/material/Container';
+
 import moment from 'moment'
 import { ToastContainer, toast } from 'react-toastify'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
@@ -135,6 +137,7 @@ const Todos = ({ task, index }) => {
 
         return (
                 <div>
+                          <Container maxWidth="xl">
                         <Card style={styles.card}>
                                 <CardContent >
                                         <div style={styles.header}>
@@ -179,6 +182,7 @@ const Todos = ({ task, index }) => {
                                 </CardContent>
                         </Card>
 
+                       
                         <Dialog open={openEdit} onClose={handleCloseEdit} fullWidth disableEscapeKeyDown={true}>
                                 <DialogTitle>Create Task</DialogTitle>
                                 <DialogContent>
@@ -260,6 +264,7 @@ const Todos = ({ task, index }) => {
                                 </DialogActions>
                         </Dialog>
                         <ToastContainer/>
+                        </Container>
                 </div>
         )
 }

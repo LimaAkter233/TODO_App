@@ -8,6 +8,11 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -88,11 +93,39 @@ const Todo = () => {
         const handleClose = () => {
                 setOpen(false);
         };
+     
         return (
-                <div>
-                        <Button variant="contained" onClick={handleClickOpen}>
-                                Add Tasks
-                        </Button>
+                <>
+                        <Container maxWidth="xl">
+                                <Box       sx={{
+                                       
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                m: 1,
+                                                bgcolor: 'background.paper',
+                                                borderRadius: 1,
+                                                minWidth:120
+                                                }}>
+                                        <FormControl style={{minWidth: 120}}>
+                                                <InputLabel id="demo-simple-select-label">All tasks</InputLabel>
+                                                <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                              
+                                                label="Status"
+                                               
+                                                >
+                                                        
+                                                <MenuItem value={10}>Ongoing tasks</MenuItem>
+                                                <MenuItem value={20}>Completed tasks</MenuItem>
+                                                <MenuItem value={30}>Pending tasks</MenuItem>
+                                                </Select>
+                                        </FormControl>
+                                        <Button variant="contained" onClick={handleClickOpen} sx={{ m: 2 }}>
+                                                Add Tasks
+                                        </Button>
+                                </Box>
+                             
                         <Dialog open={open} onClose={handleClose} fullWidth disableEscapeKeyDown={true}>
                                 <DialogTitle>Create Task</DialogTitle>
                                 <DialogContent>
@@ -161,7 +194,8 @@ const Todo = () => {
                                 </DialogActions>
                         </Dialog>
                         <ToastContainer />
-                </div>
+                        </Container>
+                </>
         )
 }
 

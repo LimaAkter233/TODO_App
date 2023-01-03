@@ -4,6 +4,7 @@ import Todo from './Todo'
 import Todos from './Todos'
 import { Typography } from '@mui/material'
 import { useAuthUser } from 'react-auth-kit'
+import { Grid } from '@mui/material'
 const Home = () => {
 
   const auth = useAuthUser()
@@ -16,6 +17,7 @@ const Home = () => {
 
   return (
     <>
+  
       <Header />
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 'auto' }}>
         <Typography variant='h4' sx={{ margin: '2rem' }}>
@@ -23,9 +25,12 @@ const Home = () => {
         </Typography>
 
       </div>
-      <div style={{ display: 'flex', float: 'right', margin: '0 2rem' }}>
+      <Grid  container
+  direction="row"
+  justifyContent="space-between"
+  alignItems="center">
         <Todo />
-      </div>
+      </Grid>
       <br/><br/>
       {tasks && tasks.length > 0 ? <div style={{ margin:'0 1rem'}}>
 
