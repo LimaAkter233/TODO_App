@@ -75,9 +75,7 @@ const Todo = () => {
                                             Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTU0MThiYzMwNWFiNGJjMWMyNzZkYyIsImlhdCI6MTY3MjczNjgzMSwiZXhwIjoxNjc1MzI4ODMxfQ.HZw9_PuJXlyoUicfUSl1sTqRuFrXGK1Gg5uu3ZOV3vk`
                                         }
                                     }
-                                const res = await axios.post('https://0f3e-103-62-140-116.in.ngrok.io/api/todo', {
-                                        task
-                                },config)
+                                const res = await axios.post('https://0f3e-103-62-140-116.in.ngrok.io/api/todo', task, config)
                 
                                 console.log(res);
 

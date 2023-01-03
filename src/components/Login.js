@@ -69,7 +69,7 @@ const Login = () => {
         } else {
 
             try {
-                const res = await axios.post('https://0f3e-103-62-140-116.in.ngrok.io/api/user/login', {
+                const res = await axios.post('https://c57d-103-62-140-118.in.ngrok.io/api/user/login', {
                     email,
                     password
                 })
