@@ -10,35 +10,47 @@ const Home = () => {
 
   const auth = useAuthUser()
   const [tasks, setTasks] = useState([])
+  const [filter, setFilter] = useState('All')
 
- 
+
   console.log(auth().token)
   useEffect(() => {
     getTodos()
 
   }, [])
 
+  const handleFilter = (e) => {
+    setFilter(e.target.value)
 
-  const getTodos = async() => {
+  }
+
+  const getTodos = async () => {
 
     const config = {
       headers: {
         'Authorization': `Bearer ${auth().token} `,
-        'ngrok-skip-browser-warning':'any'
+        'ngrok-skip-browser-warning': 'any'
       }
     }
-    
 
-    try{
+
+    try {
       const res = await axios.get('https://6133-103-62-140-118.in.ngrok.io/api/todo', config)
       console.log(res.data)
       setTasks(res.data)
-    }catch(err) {
+    } catch (err) {
       alert('Error: ' + err.message)
     }
 
-    
+    console.log('filter', filter)
+
   }
+
+  const ongoing = tasks.filter((val) => val.isComplete == false)
+
+  const completed = tasks.filter((val) => val.isComplete == true)
+
+  console.log('Ongoing', ongoing)
   return (
     <>
 
@@ -53,16 +65,36 @@ const Home = () => {
         direction="row"
         justifyContent="space-between"
         alignItems="center">
-        <Todo />
+        <Todo
+          filter={filter}
+          handleFilter={handleFilter}
+        />
       </Grid>
       <br /><br />
       {tasks && tasks.length > 0 ? <div style={{ margin: '0 1rem' }}>
 
-        {tasks.map((task, i) =>
+        {filter === 'All' && tasks.map((task, i) =>
           <Todos
             key={i}
             task={task}
             index={i}
+          // filter={filter}
+          />
+        )}
+        {filter === 'Ongoing' && ongoing.map((task, i) =>
+          <Todos
+            key={i}
+            task={task}
+            index={i}
+          // filter={filter}
+          />
+        )}
+        {filter === 'Completed' && completed.map((task, i) =>
+          <Todos
+            key={i}
+            task={task}
+            index={i}
+          // filter={filter}
           />
         )}
       </div> : <div style={{ margin: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>

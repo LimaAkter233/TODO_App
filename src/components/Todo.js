@@ -14,18 +14,19 @@ import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { useAuthUser } from 'react-auth-kit'
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const Todo = () => {
+const Todo = ({filter, handleFilter}) => {
         const auth = useAuthUser()
         const [deadline, setDeadline] = useState(new Date())
         const [title, setTitle] = useState('')
         const [description, setDescription] = useState('')
         const [priority, setPriority] = useState('')
         const [open, setOpen] = useState(false);
-       
+        
+//        console.log('Todo filter',filter)
 
         let today = new Date()
         const addTasks = async (e) => {
@@ -98,19 +99,20 @@ const Todo = () => {
                                                 borderRadius: 1,
                                                 minWidth:120
                                                 }}>
-                                        <FormControl style={{minWidth: 120}}>
-                                                <InputLabel id="demo-simple-select-label">All tasks</InputLabel>
+                                        <FormControl style={{minWidth: 125}}>
+                                                <InputLabel id="demo-simple-select-label" shrink>Filter Tasks</InputLabel>
                                                 <Select
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
-                                              
                                                 label="Status"
-                                               
+                                                value={filter}
+                                                onChange={handleFilter}
                                                 >
                                                         
-                                                <MenuItem value={10}>Ongoing tasks</MenuItem>
-                                                <MenuItem value={20}>Completed tasks</MenuItem>
-                                                <MenuItem value={30}>Pending tasks</MenuItem>
+                                                <MenuItem value='Ongoing'>Ongoing </MenuItem>
+                                                <MenuItem value='Completed'>Completed</MenuItem>
+                                                {/* <MenuItem value='Pending'>Pending Tasks</MenuItem> */}
+                                                <MenuItem value='All'>All</MenuItem>
                                                 </Select>
                                         </FormControl>
                                         <Button variant="contained" onClick={handleClickOpen} sx={{ m: 2 }}>
