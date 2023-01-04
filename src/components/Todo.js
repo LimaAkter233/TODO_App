@@ -13,12 +13,13 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+import { useAuthUser } from 'react-auth-kit'
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const Todo = () => {
-        
+        const auth = useAuthUser()
         const [deadline, setDeadline] = useState(new Date())
         const [title, setTitle] = useState('')
         const [description, setDescription] = useState('')
@@ -27,20 +28,8 @@ const Todo = () => {
        
 
         let today = new Date()
-        
-        // let tasks = JSON.parse(localStorage.getItem('tasks'))
-        // useEffect(()=>{
-        //     if(tasks){
-        //         tasks = JSON.parse(localStorage.getItem('tasks'))
-        //     }
-        // },[tasks])
-
-
         const addTasks = async (e) => {
                 e.preventDefault();
-
-                // const { date, title, description, priority} = taskItem;
-
                 if (title === '') {
                         toast.error("Please enter a title")
                         return
@@ -67,40 +56,28 @@ const Todo = () => {
                 else {
                         console.log("To do data added succesfully");
                         let task = { title, description, priority, deadline }
-                       // let tasks = []
-
                         try {
                                 const config = {
                                         headers: {
-                                            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTU0MThiYzMwNWFiNGJjMWMyNzZkYyIsImlhdCI6MTY3MjczNjgzMSwiZXhwIjoxNjc1MzI4ODMxfQ.HZw9_PuJXlyoUicfUSl1sTqRuFrXGK1Gg5uu3ZOV3vk`
+                                          'Authorization': `Bearer ${auth().token} `,
+                                          'ngrok-skip-browser-warning':'any'
                                         }
-                                    }
-                                const res = await axios.post('https://0f3e-103-62-140-116.in.ngrok.io/api/todo', task, config)
+                                      }
+                                      
+                                const res = await axios.post('https://6133-103-62-140-118.in.ngrok.io/api/todo', task, config)
                 
                                 console.log(res);
-
+                                handleClose()
                             } catch (err) {
                                  alert(err.message);
                             }
-                        // if (JSON.parse(localStorage.getItem("tasks"))?.length) {
-                        //         tasks = JSON.parse(localStorage.getItem("tasks"))
-                        //         tasks.push(task)
-                        //         localStorage.setItem("tasks", JSON.stringify(tasks));
-                        // } else {
-                        //         tasks.push(task)
-                        //         localStorage.setItem("tasks", JSON.stringify(tasks));
-                        // }
-
-                       // toast.success('Task added successfully')
-                        handleClose()
+              
+                       
                        
                 }
 
         }
        
-        //console.log(title, date, description, priority)
-
-
         const handleClickOpen = () => {
                 setOpen(true);
         };

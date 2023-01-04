@@ -69,7 +69,7 @@ const Login = () => {
         } else {
 
             try {
-                const res = await axios.post('https://c57d-103-62-140-118.in.ngrok.io/api/user/login', {
+                const res = await axios.post('https://6133-103-62-140-118.in.ngrok.io/api/user/login', {
                     email,
                     password
                 })
@@ -147,16 +147,6 @@ const Login = () => {
                         onChange={handleCredentials}
                     />
                 </FormControl>
-
-                {/* <FormControlLabel
-                    control={
-                        <Checkbox
-                            name="checkedB"
-                            color="primary"
-                        />
-                    }
-                    label="Remember me"
-                /> */}
                 <Button type='submit' onClick={login} color='primary' variant="contained" style={btnstyle} fullWidth>Sign in</Button>
                 <Typography >
                     <Link href="#" >
