@@ -107,11 +107,6 @@ const Todos = ({ task, index }) => {
 
   };
 
-  useEffect(() => {
-    updateTask()
-
-  }, [])
-
   const updateTask = async (id) => {
     console.log("update", id);
     if (title === "") {
