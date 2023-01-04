@@ -75,7 +75,7 @@ const Signup = () => {
             
             
             try {
-                const res = await axios.post(' https://ac35-103-62-140-116.in.ngrok.io/api/user/register', {
+                const res = await axios.post('https://6133-103-62-140-118.in.ngrok.io/api/user/register', {
                     name,
                      email,
                     password,
