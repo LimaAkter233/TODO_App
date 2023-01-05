@@ -69,7 +69,7 @@ const Login = () => {
         } else {
 
             try {
-                const res = await axios.post(' https://6133-103-62-140-118.in.ngrok.io/api/user/login', {
+                const res = await axios.post(`${process.env.REACT_APP_API_URL}api/user/login`, {
                     email,
                     password
                 })

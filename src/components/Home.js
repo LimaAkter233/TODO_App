@@ -35,7 +35,7 @@ const Home = () => {
 
 
     try {
-      const res = await axios.get('https://6133-103-62-140-118.in.ngrok.io/api/todo', config)
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}api/todo`, config)
       console.log(res.data)
       setTasks(res.data)
     } catch (err) {
