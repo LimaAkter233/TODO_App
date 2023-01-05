@@ -18,7 +18,7 @@ import Select from '@mui/material/Select';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const Todo = ({filter, handleFilter,handleClickOpen}) => {
+const Todo = ({filter, handleFilter}) => {
         const auth = useAuthUser()
         const [deadline, setDeadline] = useState(new Date())
         const [title, setTitle] = useState('')
@@ -65,7 +65,7 @@ const Todo = ({filter, handleFilter,handleClickOpen}) => {
                                         }
                                       }
                                       
-                                const res = await axios.post(`${process.env.REACT_APP_API_URL}api/todo`, task, config)
+                                const res = await axios.post(' https://3118-103-62-140-118.in.ngrok.io/api/todo', task, config)
                 
                                 console.log(res);
                                 handleClose()
@@ -79,7 +79,9 @@ const Todo = ({filter, handleFilter,handleClickOpen}) => {
 
         }
        
-     
+        const handleClickOpen = () => {
+                setOpen(true);
+        };
 
         const handleClose = () => {
                 setOpen(false);
@@ -87,16 +89,17 @@ const Todo = ({filter, handleFilter,handleClickOpen}) => {
      
         return (
                 <>
-                        <Container maxWidth="xl" >
-                                {/* <Box       sx={{
+                        <Container maxWidth="xl">
+                                <Box       sx={{
                                        
                                                 display: 'flex',
                                                 justifyContent: 'space-between',
                                                 m: 1,
+                                                bgcolor: 'background.paper',
                                                 borderRadius: 1,
-                                                minWidth:130
+                                                minWidth:120
                                                 }}>
-                                        <FormControl style={{minWidth: 130}}>
+                                        <FormControl style={{minWidth: 125}}>
                                                 <InputLabel id="demo-simple-select-label" shrink>Filter Tasks</InputLabel>
                                                 <Select
                                                 labelId="demo-simple-select-label"
@@ -108,13 +111,14 @@ const Todo = ({filter, handleFilter,handleClickOpen}) => {
                                                         
                                                 <MenuItem value='Ongoing'>Ongoing </MenuItem>
                                                 <MenuItem value='Completed'>Completed</MenuItem>
+                                                {/* <MenuItem value='Pending'>Pending Tasks</MenuItem> */}
                                                 <MenuItem value='All'>All</MenuItem>
                                                 </Select>
                                         </FormControl>
                                         <Button variant="contained" onClick={handleClickOpen} sx={{ m: 2 }}>
                                                 Add Tasks
                                         </Button>
-                                </Box> */}
+                                </Box>
                              
                         <Dialog open={open} onClose={handleClose} fullWidth disableEscapeKeyDown={true}>
                                 <DialogTitle>Create Task</DialogTitle>

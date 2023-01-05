@@ -2,14 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Todo from './Todo'
 import Todos from './Todos'
-import { Typography,Box, Divider,MenuItem,Container } from '@mui/material'
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
+import { Typography } from '@mui/material'
 import { useAuthUser } from 'react-auth-kit'
 import { Grid } from '@mui/material'
-import Button from '@mui/material/Button';
-import Select from '@mui/material/Select';
-import AppBar from '@mui/material/AppBar';
 import axios from 'axios'
 const Home = () => {
 
@@ -17,11 +12,11 @@ const Home = () => {
   const [tasks, setTasks] = useState([])
   const [filter, setFilter] = useState('All')
 
-  const [open, setOpen] = useState(false);
+
   console.log(auth().token)
   useEffect(() => {
     getTodos()
-    document.title="TODO App";
+
   }, [])
 
   const handleFilter = (e) => {
@@ -40,7 +35,7 @@ const Home = () => {
 
 
     try {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}api/todo`, config)
+      const res = await axios.get(' https://3118-103-62-140-118.in.ngrok.io/api/todo', config)
       console.log(res.data)
       setTasks(res.data)
     } catch (err) {
@@ -56,70 +51,26 @@ const Home = () => {
   const completed = tasks.filter((val) => val.isComplete == true)
 
   console.log('Ongoing', ongoing)
-
-  const handleClickOpen = () => {
-    setOpen(true);
-};
-
-const handleClose = () => {
-    setOpen(false);
-};
-
   return (
     <>
 
       <Header />
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 'auto' }}>
+        <Typography variant='h4' sx={{ margin: '2rem' }}>
+          Welcome to Dashbaord {auth().name}
+        </Typography>
 
-      <Grid position="static" sx={{ bgcolor: 'background.paper',}}>
-        <Container maxWidth="xl">
-
-        <Box sx={{
-         
-         display: 'flex', 
-         justifyContent: 'space-between',
-         alignItems: 'center',
-         margin: 'auto',
-        
-     
-         }}>
-
-         <FormControl style={{minWidth: 130}}>
-                   <InputLabel id="demo-simple-select-label" shrink>Filter Tasks</InputLabel>
-                   <Select
-                   labelId="demo-simple-select-label"
-                   id="demo-simple-select"
-                   label="Status"
-                   value={filter}
-                   onChange={handleFilter}
-                   >
-                           
-                   <MenuItem value='Ongoing'>Ongoing </MenuItem>
-                   <MenuItem value='Completed'>Completed</MenuItem>
-                   {/* <MenuItem value='Pending'>Pending Tasks</MenuItem> */}
-                   <MenuItem value='All'>All</MenuItem>
-                   </Select>
-           </FormControl>
-         <div>
-           <Typography variant='h4' sx={{ margin: '2rem' }}>
-             Welcome to Dashbaord {auth().name}
-           </Typography>
-
-         </div>
-         <Button variant="contained" onClick={handleClickOpen} sx={{ m: 2 }}>
-                                                   Add Tasks
-         </Button>
-     </Box>
-
-          </Container>
-          </Grid>
-
-
-      <Divider/>
+      </div>
+      <Grid container
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center">
         <Todo
-      handleClickOpen={handleClickOpen}
           filter={filter}
           handleFilter={handleFilter}
         />
+      </Grid>
+      <br /><br />
       {tasks && tasks.length > 0 ? <div style={{ margin: '0 1rem' }}>
 
         {filter === 'All' && tasks.map((task, i) =>

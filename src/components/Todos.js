@@ -35,23 +35,20 @@ const Todos = ({ task, filter }) => {
                 },
                 header: {
                         display: "flex",
-                        justifyContent: "start",
-                        // alignItems: "center",
+                        justifyContent: "center",
+                        alignItems: "center",
                         gap: "2rem",
-                        marginBottom: "0.5rem",
-                        marginLeft: "0.5rem",
+                        marginBottom: "2rem",
                 },
                 checkbox: {
                         display: "flex",
                         justifyContent: "flex-start",
                         alignItems: "flex-start",
-                        // marginLeft: "0.5rem",
                 },
                 content: {
                         display: "flex",
                         justifyContent: "flex-start",
-                        marginLeft: "0.5rem",
-                        color:'red',
+                        marginLeft: "2.5rem",
                 },
                 btn: {
                         display: "flex",
@@ -102,7 +99,7 @@ const Todos = ({ task, filter }) => {
                 try {
                         console.log("deleteTask", id);
                         const res = await axios
-                                .delete(`${process.env.REACT_APP_API_URL}api/todo/${id}`, config)
+                                .delete(`https://6133-103-62-140-118.in.ngrok.io/api/todo/${id}`, config)
                         handleClose();
                 } catch (err) {
                         alert("Error: " + err.message);
@@ -139,7 +136,7 @@ const Todos = ({ task, filter }) => {
                                         }
                                 }
                                 const res = await axios
-                                        .put(`${process.env.REACT_APP_API_URL}api/todo/${id}`, task, config)
+                                        .put(`https://6133-103-62-140-118.in.ngrok.io/api/todo/${id}`, task, config)
                                 console.log(res);
                                 toast.success("Task updated successfully");
                                 handleCloseEdit();
@@ -165,7 +162,7 @@ const Todos = ({ task, filter }) => {
                                 }
                         }
                         const res = await axios
-                                .put(`${process.env.REACT_APP_API_URL}api/todo/${id}`, task, config)
+                                .put(` https://3118-103-62-140-118.in.ngrok.io/api/todo/${id}`, task, config)
                         console.log(res);
                         toast.success("Task Completed");
                         handleCloseEdit();
@@ -196,11 +193,11 @@ const Todos = ({ task, filter }) => {
                                                                 onClick={()=>completeTask(task._id)}
                                                         />
                                                         <div>
-                                                                <Typography variant="h6" >{task.description}</Typography>
+                                                                <Typography variant="h6">{task.description}</Typography>
                                                         </div>
                                                 </div>
-                                                <div style={styles.content}  > 
-                                              Task Due At: {moment(task.deadline).format("MMMM Do YYYY")}
+                                                <div style={styles.content}>
+                                                        Task Due At: {moment(task.deadline).format("MMMM Do YYYY")}
                                                 </div>
                                                 <div style={styles.btn}>
                                                         <Button
