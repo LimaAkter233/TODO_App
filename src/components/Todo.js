@@ -18,7 +18,7 @@ import Select from '@mui/material/Select';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const Todo = ({filter, handleFilter}) => {
+const Todo = ({filter, handleFilter,handleClickOpen}) => {
         const auth = useAuthUser()
         const [deadline, setDeadline] = useState(new Date())
         const [title, setTitle] = useState('')
@@ -79,9 +79,7 @@ const Todo = ({filter, handleFilter}) => {
 
         }
        
-        const handleClickOpen = () => {
-                setOpen(true);
-        };
+     
 
         const handleClose = () => {
                 setOpen(false);
@@ -89,17 +87,16 @@ const Todo = ({filter, handleFilter}) => {
      
         return (
                 <>
-                        <Container maxWidth="xl">
-                                <Box       sx={{
+                        <Container maxWidth="xl" >
+                                {/* <Box       sx={{
                                        
                                                 display: 'flex',
                                                 justifyContent: 'space-between',
                                                 m: 1,
-                                                bgcolor: 'background.paper',
                                                 borderRadius: 1,
-                                                minWidth:120
+                                                minWidth:130
                                                 }}>
-                                        <FormControl style={{minWidth: 125}}>
+                                        <FormControl style={{minWidth: 130}}>
                                                 <InputLabel id="demo-simple-select-label" shrink>Filter Tasks</InputLabel>
                                                 <Select
                                                 labelId="demo-simple-select-label"
@@ -111,14 +108,13 @@ const Todo = ({filter, handleFilter}) => {
                                                         
                                                 <MenuItem value='Ongoing'>Ongoing </MenuItem>
                                                 <MenuItem value='Completed'>Completed</MenuItem>
-                                                {/* <MenuItem value='Pending'>Pending Tasks</MenuItem> */}
                                                 <MenuItem value='All'>All</MenuItem>
                                                 </Select>
                                         </FormControl>
                                         <Button variant="contained" onClick={handleClickOpen} sx={{ m: 2 }}>
                                                 Add Tasks
                                         </Button>
-                                </Box>
+                                </Box> */}
                              
                         <Dialog open={open} onClose={handleClose} fullWidth disableEscapeKeyDown={true}>
                                 <DialogTitle>Create Task</DialogTitle>

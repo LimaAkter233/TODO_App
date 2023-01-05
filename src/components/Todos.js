@@ -35,20 +35,23 @@ const Todos = ({ task, filter }) => {
                 },
                 header: {
                         display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
+                        justifyContent: "start",
+                        // alignItems: "center",
                         gap: "2rem",
-                        marginBottom: "2rem",
+                        marginBottom: "0.5rem",
+                        marginLeft: "0.5rem",
                 },
                 checkbox: {
                         display: "flex",
                         justifyContent: "flex-start",
                         alignItems: "flex-start",
+                        // marginLeft: "0.5rem",
                 },
                 content: {
                         display: "flex",
                         justifyContent: "flex-start",
-                        marginLeft: "2.5rem",
+                        marginLeft: "0.5rem",
+                        color:'red',
                 },
                 btn: {
                         display: "flex",
@@ -193,11 +196,11 @@ const Todos = ({ task, filter }) => {
                                                                 onClick={()=>completeTask(task._id)}
                                                         />
                                                         <div>
-                                                                <Typography variant="h6">{task.description}</Typography>
+                                                                <Typography variant="h6" >{task.description}</Typography>
                                                         </div>
                                                 </div>
-                                                <div style={styles.content}>
-                                                        Task Due At: {moment(task.deadline).format("MMMM Do YYYY")}
+                                                <div style={styles.content}  > 
+                                              Task Due At: {moment(task.deadline).format("MMMM Do YYYY")}
                                                 </div>
                                                 <div style={styles.btn}>
                                                         <Button

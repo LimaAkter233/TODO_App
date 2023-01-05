@@ -10,7 +10,8 @@ import { Routes, Route } from "react-router-dom"
 import { RequireAuth } from 'react-auth-kit'
 import { ThemeProvider, createTheme, responsiveFontSizes  } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 function App() {
 
   const darkTheme = createTheme({
@@ -28,7 +29,9 @@ function App() {
 
   return (
 
-    <ThemeProvider theme={theme}>
+    <ThemeProvider  theme={theme} sx={{background:"#fafafa"}} >
+   <Box    sx={{ bgcolor: '#fafafa'}}
+   >
       <CssBaseline />
       <Routes>
         <Route path='/' element={<RequireAuth loginPath='/login'>
@@ -39,7 +42,7 @@ function App() {
         <Route path='/details' element={<Details />} />
         {/* <Route path='*' element={<Errror />} /> */}
       </Routes>
-
+      </Box>
     </ThemeProvider>
 
 
