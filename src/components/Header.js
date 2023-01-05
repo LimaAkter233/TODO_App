@@ -13,29 +13,35 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useSignOut } from 'react-auth-kit'
-import { useNavigate } from 'react-router-dom'
-const pages = ['Tasks', 'TaskLists', 'ToDo Statistics '];
+import { useNavigate, Link } from 'react-router-dom'
+const pages = [
+  {
+    name: 'Statistics',
+    path: '/stats',
+  }
+];
 
 //const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Header() {
 
+  const styles = {
+    link: {
+      textDecoration: 'none',
+      color: 'inherit',
+
+    }
+  }
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   const signOut = useSignOut()
@@ -53,9 +59,6 @@ function Header() {
             {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
             <Typography
               variant="h6"
-              noWrap
-              component="a"
-              href="/"
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
@@ -66,7 +69,7 @@ function Header() {
                 textDecoration: 'none',
               }}
             >
-              TODO
+              <Link to='/' style={styles.link}>TODO</Link>
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -98,9 +101,17 @@ function Header() {
                   display: { xs: 'block', md: 'none' },
                 }}
               >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
+                {pages.map((page, i) => (
+                  <MenuItem key={i} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">
+                      <Link
+                        to={page.path}
+                        style={styles.link}
+
+                      >
+                        {page.name}
+                      </Link>
+                    </Typography>
                   </MenuItem>
                 ))}
               </Menu>
@@ -109,8 +120,6 @@ function Header() {
             <Typography
               variant="h5"
               noWrap
-              component="a"
-              href=""
               sx={{
                 mr: 2,
                 display: { xs: 'flex', md: 'none' },
@@ -122,27 +131,35 @@ function Header() {
                 textDecoration: 'none',
               }}
             >
-              TODO
+              <Link to='/' style={styles.link}>TODO</Link>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
+              {pages.map((page, i) => (
                 <Button
-                  key={page}
+                  key={i}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
-                  {page}
+                  <Typography textAlign="center">
+                    <Link
+                      to={page.path}
+                      style={styles.link}
+
+                    >
+                      {page.name}
+                    </Link>
+                  </Typography>
                 </Button>
               ))}
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="">
-                <Button onClick={handleSignOut} sx={{ p: 1, color:'white', border:'1px solid white' }}>
-                    Logout
+                <Button onClick={handleSignOut} sx={{ p: 1, color: 'white', border: '1px solid white' }}>
+                  Logout
                 </Button>
               </Tooltip>
-              
+
             </Box>
           </Toolbar>
         </Container>

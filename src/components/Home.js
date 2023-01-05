@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../components/Header'
 import Todo from './Todo'
 import Todos from './Todos'
 import { Typography } from '@mui/material'
@@ -13,7 +12,7 @@ const Home = () => {
   const [filter, setFilter] = useState('All')
 
 
-  console.log(auth().token)
+  // console.log(auth().token)
   useEffect(() => {
     getTodos()
 
@@ -36,13 +35,12 @@ const Home = () => {
 
     try {
       const res = await axios.get(`${process.env.REACT_APP_API_URL}api/todo`, config)
-      console.log(res.data)
+      // console.log(res.data)
       setTasks(res.data)
     } catch (err) {
       alert('Error: ' + err.message)
     }
 
-    console.log('filter', filter)
 
   }
 
@@ -54,7 +52,6 @@ const Home = () => {
   return (
     <>
 
-      <Header />
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 'auto' }}>
         <Typography variant='h4' sx={{ margin: '2rem' }}>
           Welcome to Dashbaord {auth().name}
