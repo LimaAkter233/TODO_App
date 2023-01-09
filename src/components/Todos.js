@@ -194,9 +194,10 @@ const Todos = ({ task, filter }) => {
                                                                 onChange={handleChangeCheck}
                                                                 inputProps={{ "aria-label": "controlled" }}
                                                                 onClick={()=>completeTask(task._id)}
+                                                                
                                                         />
                                                         <div>
-                                                                <Typography variant="h6">{task.description}</Typography>
+                                                                <Typography variant="h6" style={{ textDecoration: task.isComplete ? "line-through" : "" }} >{task.description}</Typography>
                                                         </div>
                                                 </div>
                                                 <div style={styles.content}>
