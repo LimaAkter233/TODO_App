@@ -201,11 +201,11 @@ const Todos = ({ task, getTodos }) => {
                                                                 disabled={new Date()>new Date(task.deadline)}
                                                         />
                                                         <div>
-                                                                <Typography variant="h6">{task.description}</Typography>
+                                                                <Typography variant="h6" style={{ textDecoration: task.isComplete ? "line-through" : "" }} >{task.description}</Typography>
                                                         </div>
                                                 </div>
                                                 <div style={styles.content}>
-                                                        Task Due At: {moment(task.deadline).format("MMMM Do YYYY")}
+                                                        <span style={{color:"red", fontWeight:"bold"}}>Task Due At:</span> <span style={{color:"black", fontWeight:"bold"}}>{moment(task.deadline).format("MMMM Do YYYY")}</span>
                                                 </div>
                                                 <div style={styles.btn}>
                                                         <Button

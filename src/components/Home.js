@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Todo from './Todo'
 import Todos from './Todos'
-import { Typography } from '@mui/material'
+import { Typography, CircularProgress } from '@mui/material'
 import { useAuthUser } from 'react-auth-kit'
 import { Grid } from '@mui/material'
 import axios from 'axios'
@@ -10,7 +10,7 @@ const Home = () => {
   const auth = useAuthUser()
   const [tasks, setTasks] = useState([])
   const [filter, setFilter] = useState('All')
-
+  const [loading, setLoading] = useState(false)
 
   // console.log(auth().token)
   useEffect(() => {
@@ -31,12 +31,13 @@ const Home = () => {
         'ngrok-skip-browser-warning': 'any'
       }
     }
-
+    setLoading(true)
 
     try {
       const res = await axios.get(`${process.env.REACT_APP_API_URL}api/todo`, config)
       // console.log(res.data)
       setTasks(res.data)
+      setLoading(false)
     } catch (err) {
       alert('Error: ' + err.message)
     }
@@ -48,7 +49,7 @@ const Home = () => {
 
   const completed = tasks.filter((val) => val.isComplete == true)
 
-  console.log('Ongoing', ongoing)
+  // console.log('Ongoing', ongoing)
   return (
     <>
 
@@ -68,40 +69,50 @@ const Home = () => {
         />
       </Grid>
       <br /><br />
-      {tasks && tasks.length > 0 ? <div style={{ margin: '0 1rem' }}>
+      {
+        loading ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <CircularProgress />
+        </div> :
+          <div>
+            {tasks && tasks.length > 0 && <div style={{ margin: '0 1rem' }}>
 
-        {filter === 'All' && tasks.map((task, i) =>
-          <Todos
-            key={i}
-            task={task}
-            index={i}
-            getTodos={getTodos}
-          // filter={filter}
-          />
-        )}
-        {filter === 'Ongoing' && ongoing.map((task, i) =>
-          <Todos
-            key={i}
-            task={task}
-            index={i}
-            getTodos={getTodos}
-          // filter={filter}
-          />
-        )}
-        {filter === 'Completed' && completed.map((task, i) =>
-          <Todos
-            key={i}
-            task={task}
-            index={i}
-            getTodos={getTodos}
-          // filter={filter}
-          />
-        )}
-      </div> : <div style={{ margin: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-        <Typography variant='h5'>
-          No Posts Available
-        </Typography>
-      </div>}
+              {filter === 'All' && tasks.map((task, i) =>
+                <Todos
+                  key={i}
+                  task={task}
+                  index={i}
+                  getTodos={getTodos}
+                // filter={filter}
+                />
+              )}
+              {filter === 'Ongoing' && ongoing.map((task, i) =>
+                <Todos
+                  key={i}
+                  task={task}
+                  index={i}
+                  getTodos={getTodos}
+                // filter={filter}
+                />
+              )}
+              {filter === 'Completed' && completed.map((task, i) =>
+                <Todos
+                  key={i}
+                  task={task}
+                  index={i}
+                  getTodos={getTodos}
+                // filter={filter}
+                />
+              )}
+            </div>}
+          </div>
+      }
+      {
+        (loading == false && tasks.length==0) && <div style={{ margin: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+          <Typography variant='h5'>
+            No Posts Available
+          </Typography>
+        </div>
+      }
     </>
   )
 }
