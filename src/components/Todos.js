@@ -27,7 +27,7 @@ import { useAuthUser } from 'react-auth-kit'
 const Todos = ({ task, filter }) => {
         // console.log('Todosfilter',filter )
         const auth = useAuthUser()
-        console.log(task);
+        // console.log(task);
         const styles = {
                 card: {
                         margin: "3rem 0",
@@ -99,7 +99,7 @@ const Todos = ({ task, filter }) => {
                 try {
                         console.log("deleteTask", id);
                         const res = await axios
-                                .delete(`https://6133-103-62-140-118.in.ngrok.io/api/todo/${id}`, config)
+                                .delete(`${process.env.REACT_APP_API_URL}api/todo/${id}`, config)
                         handleClose();
                 } catch (err) {
                         alert("Error: " + err.message);
@@ -136,7 +136,7 @@ const Todos = ({ task, filter }) => {
                                         }
                                 }
                                 const res = await axios
-                                        .put(`https://6133-103-62-140-118.in.ngrok.io/api/todo/${id}`, task, config)
+                                        .put(`${process.env.REACT_APP_API_URL}api/todo/${id}`, task, config)
                                 console.log(res);
                                 toast.success("Task updated successfully");
                                 handleCloseEdit();
@@ -162,7 +162,7 @@ const Todos = ({ task, filter }) => {
                                 }
                         }
                         const res = await axios
-                                .put(` https://3118-103-62-140-118.in.ngrok.io/api/todo/${id}`, task, config)
+                                .put(` ${process.env.REACT_APP_API_URL}api/todo/${id}`, task, config)
                         console.log(res);
                         toast.success("Task Completed");
                         handleCloseEdit();

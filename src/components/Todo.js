@@ -65,7 +65,7 @@ const Todo = ({filter, handleFilter}) => {
                                         }
                                       }
                                       
-                                const res = await axios.post(' https://3118-103-62-140-118.in.ngrok.io/api/todo', task, config)
+                                const res = await axios.post(`${process.env.REACT_APP_API_URL}api/todo`, task, config)
                 
                                 console.log(res);
                                 handleClose()
