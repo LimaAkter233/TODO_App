@@ -9,6 +9,7 @@ import {
         Button,
         TextField,
         MenuItem,
+        Divider
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -17,6 +18,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
@@ -98,8 +101,7 @@ const Todos = ({ task, filter }) => {
                 };
                 try {
                         console.log("deleteTask", id);
-                        const res = await axios
-                                .delete(`https://6133-103-62-140-118.in.ngrok.io/api/todo/${id}`, config)
+                        const res = await axios.delete(`${process.env.REACT_APP_API_URL}api/todo/${id}`, config)
                         handleClose();
                 } catch (err) {
                         alert("Error: " + err.message);
@@ -135,8 +137,7 @@ const Todos = ({ task, filter }) => {
                                                 'ngrok-skip-browser-warning': 'any'
                                         }
                                 }
-                                const res = await axios
-                                        .put(`https://6133-103-62-140-118.in.ngrok.io/api/todo/${id}`, task, config)
+                                const res = await axios.put(`${process.env.REACT_APP_API_URL}api/todo/${id}`, task, config)
                                 console.log(res);
                                 toast.success("Task updated successfully");
                                 handleCloseEdit();
@@ -161,8 +162,7 @@ const Todos = ({ task, filter }) => {
                                         'ngrok-skip-browser-warning': 'any'
                                 }
                         }
-                        const res = await axios
-                                .put(` https://3118-103-62-140-118.in.ngrok.io/api/todo/${id}`, task, config)
+                        const res = await axios.put(`${process.env.REACT_APP_API_URL}api/todo/${id}`, task, config)
                         console.log(res);
                         toast.success("Task Completed");
                         handleCloseEdit();
@@ -220,8 +220,15 @@ const Todos = ({ task, filter }) => {
                                         fullWidth
                                         disableEscapeKeyDown={true}
                                 >
-                                        <DialogTitle>Create Task</DialogTitle>
+                                        <DialogTitle>Update Task</DialogTitle>
+                                        <Divider/>
                                         <DialogContent>
+                                        <IconButton
+                                        style={{ position: "absolute", top: "0", right: "0" }}
+                                        onClick={() => setOpenEdit(false)}
+                                        >
+                                        <CloseIcon />
+                                </IconButton>
                                                 <Grid
                                                         container
                                                         spacing={3}
@@ -289,7 +296,7 @@ const Todos = ({ task, filter }) => {
                                                 </Button>
                                                 <Button
                                                         onClick={() => updateTask(task._id)}
-                                                        variant="outlined"
+                                                        variant="contained"
                                                         color="primary"
                                                 >
                                                         Submit

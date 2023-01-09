@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Grid, TextField, MenuItem } from '@mui/material'
+import { Grid, TextField, MenuItem, Divider } from '@mui/material'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
@@ -11,11 +11,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { useAuthUser } from 'react-auth-kit'
 import Select from '@mui/material/Select';
 import { ToastContainer, toast } from 'react-toastify'
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 import 'react-toastify/dist/ReactToastify.css'
 
 const Todo = ({filter, handleFilter}) => {
@@ -65,7 +69,7 @@ const Todo = ({filter, handleFilter}) => {
                                         }
                                       }
                                       
-                                const res = await axios.post(' https://3118-103-62-140-118.in.ngrok.io/api/todo', task, config)
+                                const res = await axios.post(`${process.env.REACT_APP_API_URL}api/todo`, task, config)
                 
                                 console.log(res);
                                 handleClose()
@@ -90,39 +94,56 @@ const Todo = ({filter, handleFilter}) => {
         return (
                 <>
                         <Container maxWidth="xl">
-                                <Box       sx={{
-                                       
-                                                display: 'flex',
-                                                justifyContent: 'space-between',
-                                                m: 1,
-                                                bgcolor: 'background.paper',
-                                                borderRadius: 1,
-                                                minWidth:120
-                                                }}>
-                                        <FormControl style={{minWidth: 125}}>
-                                                <InputLabel id="demo-simple-select-label" shrink>Filter Tasks</InputLabel>
-                                                <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                label="Status"
-                                                value={filter}
-                                                onChange={handleFilter}
-                                                >
-                                                        
-                                                <MenuItem value='Ongoing'>Ongoing </MenuItem>
-                                                <MenuItem value='Completed'>Completed</MenuItem>
-                                                {/* <MenuItem value='Pending'>Pending Tasks</MenuItem> */}
-                                                <MenuItem value='All'>All</MenuItem>
-                                                </Select>
-                                        </FormControl>
-                                        <Button variant="contained" onClick={handleClickOpen} sx={{ m: 2 }}>
-                                                Add Tasks
-                                        </Button>
-                                </Box>
+                
+   <Card  container maxWidth='xl'  sx={{
+                                      
+   
+       }}>
+      <CardContent>
+        <div style={{    display: 'flex',justifyContent: "space-between", alignItems: "center",}}>
+        <FormControl sx={{minWidth: 150,
+        }}>
+                        <InputLabel id="demo-simple-select-label" shrink>Filter Tasks</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        label="Status"
+                        value={filter}
+                        onChange={handleFilter}
+                        sx={{minWidth: 130}}
+                        >
+                                
+                        <MenuItem value='Ongoing'>Ongoing </MenuItem>
+                        <MenuItem value='Completed'>Completed</MenuItem>
+                        {/* <MenuItem value='Pending'>Pending Tasks</MenuItem> */}
+                        <MenuItem value='All'>All</MenuItem>
+                </Select>
+                </FormControl>
+                <Button variant="contained" onClick={handleClickOpen}  sx={{
+                 m: 2,
+               
+                justifyContent: "flex-end",
+                alignItems: "flex-end",
+                }}>
+                        Add Tasks
+                </Button>
+         </div>
+      </CardContent>
+</Card>
+ 
+                       
+                              
                              
                         <Dialog open={open} onClose={handleClose} fullWidth disableEscapeKeyDown={true}>
                                 <DialogTitle>Create Task</DialogTitle>
+                                <Divider/>
                                 <DialogContent>
+                                <IconButton
+                                        style={{ position: "absolute", top: "0", right: "0" }}
+                                        onClick={() => setOpen(false)}
+                                        >
+                                        <CloseIcon />
+                                </IconButton>
                                         <Grid container spacing={3} justifyContent='center' alignItems='space-around' flexDirection='column'>
                                                 <Grid item md={12}>
                                                         <TextField
@@ -184,7 +205,7 @@ const Todo = ({filter, handleFilter}) => {
                                 </DialogContent>
                                 <DialogActions>
                                         <Button onClick={handleClose} variant="outlined" color="error">Cancel</Button>
-                                        <Button onClick={addTasks} variant="outlined" color="primary">Submit</Button>
+                                        <Button onClick={addTasks} variant="contained" color="primary">Submit</Button>
                                 </DialogActions>
                         </Dialog>
                         <ToastContainer />
