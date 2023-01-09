@@ -22,7 +22,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import 'react-toastify/dist/ReactToastify.css'
 
-const Todo = ({ filter, handleFilter }) => {
+const Todo = ({ filter, handleFilter, getTodos }) => {
         const auth = useAuthUser()
         const [deadline, setDeadline] = useState(new Date())
         const [title, setTitle] = useState('')
@@ -73,6 +73,7 @@ const Todo = ({ filter, handleFilter }) => {
 
                                 console.log(res);
                                 handleClose()
+                                getTodos()
                         } catch (err) {
                                 alert(err.message);
                         }

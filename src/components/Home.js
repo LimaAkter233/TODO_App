@@ -66,6 +66,7 @@ const Home = () => {
         <Todo
           filter={filter}
           handleFilter={handleFilter}
+          getTodos={getTodos}
         />
       </Grid>
       <br /><br />
@@ -78,36 +79,30 @@ const Home = () => {
 
               {filter === 'All' && tasks.map((task, i) =>
                 <Todos
-                  key={i}
+                  key={task._id}
                   task={task}
-                  index={i}
                   getTodos={getTodos}
-                // filter={filter}
                 />
               )}
               {filter === 'Ongoing' && ongoing.map((task, i) =>
                 <Todos
-                  key={i}
+                  key={task._id}
                   task={task}
-                  index={i}
                   getTodos={getTodos}
-                // filter={filter}
                 />
               )}
               {filter === 'Completed' && completed.map((task, i) =>
                 <Todos
-                  key={i}
+                  key={task._id}
                   task={task}
-                  index={i}
                   getTodos={getTodos}
-                // filter={filter}
                 />
               )}
             </div>}
           </div>
       }
       {
-        (loading == false && tasks.length==0) && <div style={{ margin: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+        (loading == false && tasks.length == 0) && <div style={{ margin: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
           <Typography variant='h5'>
             No Posts Available
           </Typography>
