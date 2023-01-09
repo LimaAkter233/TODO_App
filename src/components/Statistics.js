@@ -1,14 +1,15 @@
-import {useEffect, useState} from 'react'
-import axios from 'axios' 
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 import { useAuthUser } from 'react-auth-kit'
 import PieChart from './PieChart'
 import TaskTable from './TaskTable'
-import moment from 'moment'
+
 
 const Statistics = () => {
-  
+
   const auth = useAuthUser()
   const [tasks, setTasks] = useState([])
+  const [query, setQuery] = useState('')
 
   useEffect(() => {
     getTodos()
@@ -36,14 +37,41 @@ const Statistics = () => {
 
   }
 
-  const ongoing = tasks.filter((val) => val.isComplete == false).length
+  const ongoing = tasks.filter((val) => (val.isComplete == false && (new Date(val.deadline) > new Date()))).length
 
   const completed = tasks.filter((val) => val.isComplete == true).length
 
-  const failed =  tasks.filter((val) => (val.isComplete == false && (new Date(val.deadline) < new Date()))).length
+  const failed = tasks.filter((val) => (val.isComplete == false && (new Date(val.deadline) < new Date()))).length
 
-  console.log(failed)
-  
+  console.log(tasks)
+
+  // let curr = tasks.filter((val) => (val.isComplete == false && (new Date(val.deadline) > new Date())))
+
+  // console.log(curr)
+
+  function handleSearch(query) {
+    // update search value
+    
+
+    if (query) {
+      const filtered = tasks.filter(
+        task =>
+          task.title.toLowerCase().includes(query) ||
+          task.description.toLowerCase().includes(query) ||
+          task.priority.toLowerCase().includes(query)
+      );
+
+      return filtered
+    
+    }
+    return tasks
+  }
+
+  const handleQuery=(e)=>{
+    setQuery(e.target.value)
+  }
+
+
 
 
   const data = {
@@ -70,11 +98,16 @@ const Statistics = () => {
 
   return (
     <div>
-         <PieChart
-         
-           data={data}
-         />
-         <TaskTable/>
+      <PieChart
+
+        data={data}
+      />
+      <TaskTable
+        query={query}
+        tasks={tasks}
+        handleSearch={handleSearch}
+        handleQuery={handleQuery}
+      />
     </div>
   )
 }

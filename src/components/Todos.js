@@ -30,7 +30,7 @@ import { useAuthUser } from 'react-auth-kit'
 const Todos = ({ task, filter }) => {
         // console.log('Todosfilter',filter )
         const auth = useAuthUser()
-        console.log(task);
+        // console.log(task);
         const styles = {
                 card: {
                         margin: "3rem 0",
@@ -101,7 +101,8 @@ const Todos = ({ task, filter }) => {
                 };
                 try {
                         console.log("deleteTask", id);
-                        const res = await axios.delete(`${process.env.REACT_APP_API_URL}api/todo/${id}`, config)
+                        const res = await axios
+                                .delete(`${process.env.REACT_APP_API_URL}api/todo/${id}`, config)
                         handleClose();
                 } catch (err) {
                         alert("Error: " + err.message);
@@ -137,7 +138,8 @@ const Todos = ({ task, filter }) => {
                                                 'ngrok-skip-browser-warning': 'any'
                                         }
                                 }
-                                const res = await axios.put(`${process.env.REACT_APP_API_URL}api/todo/${id}`, task, config)
+                                const res = await axios
+                                        .put(`${process.env.REACT_APP_API_URL}api/todo/${id}`, task, config)
                                 console.log(res);
                                 toast.success("Task updated successfully");
                                 handleCloseEdit();
@@ -162,7 +164,8 @@ const Todos = ({ task, filter }) => {
                                         'ngrok-skip-browser-warning': 'any'
                                 }
                         }
-                        const res = await axios.put(`${process.env.REACT_APP_API_URL}api/todo/${id}`, task, config)
+                        const res = await axios
+                                .put(` ${process.env.REACT_APP_API_URL}api/todo/${id}`, task, config)
                         console.log(res);
                         toast.success("Task Completed");
                         handleCloseEdit();
