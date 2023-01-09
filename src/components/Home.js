@@ -75,6 +75,7 @@ const Home = () => {
             key={i}
             task={task}
             index={i}
+            getTodos={getTodos}
           // filter={filter}
           />
         )}
@@ -83,6 +84,7 @@ const Home = () => {
             key={i}
             task={task}
             index={i}
+            getTodos={getTodos}
           // filter={filter}
           />
         )}
@@ -91,6 +93,7 @@ const Home = () => {
             key={i}
             task={task}
             index={i}
+            getTodos={getTodos}
           // filter={filter}
           />
         )}

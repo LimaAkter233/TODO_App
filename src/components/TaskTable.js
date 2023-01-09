@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField, Chip } from '@mui/material';
 import moment from 'moment/moment';
 import { CSVLink } from "react-csv";
 
@@ -92,9 +92,13 @@ const TaskTable = ({ tasks, handleSearch, query, handleQuery }) => {
                     >
                       <TableCell>{task.title}</TableCell>
                       <TableCell>{task.description}</TableCell>
-                      <TableCell>{task.priority}</TableCell>
+                      <TableCell>{(task.priority=='High'&&<Chip label={task.priority} color="error" variant="info" />)||
+                      (task.priority=='Medium'&&<Chip label={task.priority} color="warning" variant="filled" />)||
+                      (task.priority=='Low'&&<Chip label={task.priority} color="primary" variant="filled" />)
+                      
+                      }</TableCell>
                       <TableCell>{moment(task.deadline).format('DD-MM-YYYY')}</TableCell>
-                      <TableCell>{task.isComplete == false ? 'No' : 'Yes'}</TableCell>
+                      <TableCell>{task.isComplete == false ?  <Chip label="No" color="error" variant="filled" /> :  <Chip label="Yes" color="success" variant="filled" />}</TableCell>
                     </TableRow>
                   );
                 })}

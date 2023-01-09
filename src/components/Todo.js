@@ -22,15 +22,15 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import 'react-toastify/dist/ReactToastify.css'
 
-const Todo = ({filter, handleFilter}) => {
+const Todo = ({ filter, handleFilter }) => {
         const auth = useAuthUser()
         const [deadline, setDeadline] = useState(new Date())
         const [title, setTitle] = useState('')
         const [description, setDescription] = useState('')
         const [priority, setPriority] = useState('')
         const [open, setOpen] = useState(false);
-        
-//        console.log('Todo filter',filter)
+
+        //        console.log('Todo filter',filter)
 
         let today = new Date()
         const addTasks = async (e) => {
@@ -64,25 +64,25 @@ const Todo = ({filter, handleFilter}) => {
                         try {
                                 const config = {
                                         headers: {
-                                          'Authorization': `Bearer ${auth().token} `,
-                                          'ngrok-skip-browser-warning':'any'
+                                                'Authorization': `Bearer ${auth().token} `,
+                                                'ngrok-skip-browser-warning': 'any'
                                         }
-                                      }
-                                      
+                                }
+
                                 const res = await axios.post(`${process.env.REACT_APP_API_URL}api/todo`, task, config)
-                
+
                                 console.log(res);
                                 handleClose()
-                            } catch (err) {
-                                 alert(err.message);
-                            }
-              
-                       
-                       
+                        } catch (err) {
+                                alert(err.message);
+                        }
+
+
+
                 }
 
         }
-       
+
         const handleClickOpen = () => {
                 setOpen(true);
         };
@@ -90,125 +90,126 @@ const Todo = ({filter, handleFilter}) => {
         const handleClose = () => {
                 setOpen(false);
         };
-     
+
         return (
                 <>
                         <Container maxWidth="xl">
-                
-   <Card  container maxWidth='xl'  sx={{
-                                      
-   
-       }}>
-      <CardContent>
-        <div style={{    display: 'flex',justifyContent: "space-between", alignItems: "center",}}>
-        <FormControl sx={{minWidth: 150,
-        }}>
-                        <InputLabel id="demo-simple-select-label" shrink>Filter Tasks</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="Status"
-                        value={filter}
-                        onChange={handleFilter}
-                        sx={{minWidth: 130}}
-                        >
-                                
-                        <MenuItem value='Ongoing'>Ongoing </MenuItem>
-                        <MenuItem value='Completed'>Completed</MenuItem>
-                        {/* <MenuItem value='Pending'>Pending Tasks</MenuItem> */}
-                        <MenuItem value='All'>All</MenuItem>
-                </Select>
-                </FormControl>
-                <Button variant="contained" onClick={handleClickOpen}  sx={{
-                 m: 2,
-               
-                justifyContent: "flex-end",
-                alignItems: "flex-end",
-                }}>
-                        Add Tasks
-                </Button>
-         </div>
-      </CardContent>
-</Card>
- 
-                       
-                              
-                             
-                        <Dialog open={open} onClose={handleClose} fullWidth disableEscapeKeyDown={true}>
-                                <DialogTitle>Create Task</DialogTitle>
-                                <Divider/>
-                                <DialogContent>
-                                <IconButton
-                                        style={{ position: "absolute", top: "0", right: "0" }}
-                                        onClick={() => setOpen(false)}
-                                        >
-                                        <CloseIcon />
-                                </IconButton>
-                                        <Grid container spacing={3} justifyContent='center' alignItems='space-around' flexDirection='column'>
-                                                <Grid item md={12}>
-                                                        <TextField
-                                                                id="outlined-required"
-                                                                label="Task Title"
-                                                                fullWidth
-                                                                variant='outlined'
-                                                                name='title'
-                                                                value={title}
-                                                                onChange={(e) => setTitle(e.target.value)}
 
-                                                        />
-                                                </Grid>
-                                                <Grid item md={12}>
-                                                        <TextField
-                                                                id="outlined-required"
-                                                                label="Task Deskcription"
-                                                                fullWidth
-                                                                variant='outlined'
-                                                                multiline
-                                                                maxRows={10}
-                                                                value={description}
-                                                                onChange={(e) => setDescription(e.target.value)}
+                                <Card container maxWidth='xl' sx={{
 
-                                                        />
-                                                </Grid>
-                                                <Grid item md={12}>
-                                                        <TextField
-                                                                id="outlined-required"
-                                                                label="Task Priority"
-                                                                fullWidth
-                                                                select
-                                                                variant='outlined'
-                                                                value={priority}
-                                                                onChange={(e) => setPriority(e.target.value)}
 
-                                                        >
-                                                                <MenuItem value='High'>High</MenuItem>
-                                                                <MenuItem value='Medium'>Medium</MenuItem>
-                                                                <MenuItem value='Low'>Low</MenuItem>
-                                                        </TextField>
-                                                </Grid>
-                                                <Grid item md={12}>
-                                                        <LocalizationProvider dateAdapter={AdapterMoment}>
-                                                                <DesktopDatePicker
-                                                                        label="Deadline"
-                                                                        inputFormat="MM/DD/YYYY"
-                                                                        value={deadline}
-                                                                        onChange={(newValue) => setDeadline(newValue)}
-                                                                        renderInput={(params) => <TextField {...params} fullWidth />}
-                                                                        minDate={deadline}
+                                }}>
+                                        <CardContent>
+                                                <div style={{ display: 'flex', justifyContent: "space-between", alignItems: "center", }}>
+                                                        <FormControl sx={{
+                                                                minWidth: 150,
+                                                        }}>
+                                                                <InputLabel id="demo-simple-select-label" shrink>Filter Tasks</InputLabel>
+                                                                <Select
+                                                                        labelId="demo-simple-select-label"
+                                                                        id="demo-simple-select"
+                                                                        label="Status"
+                                                                        value={filter}
+                                                                        onChange={handleFilter}
+                                                                        sx={{ minWidth: 130 }}
+                                                                >
+
+                                                                        <MenuItem value='Ongoing'>Ongoing </MenuItem>
+                                                                        <MenuItem value='Completed'>Completed</MenuItem>
+                                                                        {/* <MenuItem value='Pending'>Pending Tasks</MenuItem> */}
+                                                                        <MenuItem value='All'>All</MenuItem>
+                                                                </Select>
+                                                        </FormControl>
+                                                        <Button variant="contained" onClick={handleClickOpen} sx={{
+                                                                m: 2,
+
+                                                                justifyContent: "flex-end",
+                                                                alignItems: "flex-end",
+                                                        }}>
+                                                                Add Tasks
+                                                        </Button>
+                                                </div>
+                                        </CardContent>
+                                </Card>
+
+
+
+
+                                <Dialog open={open} onClose={handleClose} fullWidth disableEscapeKeyDown={true}>
+                                        <DialogTitle>Create Task</DialogTitle>
+                                        <Divider />
+                                        <DialogContent>
+                                                <IconButton
+                                                        style={{ position: "absolute", top: "0", right: "0" }}
+                                                        onClick={() => setOpen(false)}
+                                                >
+                                                        <CloseIcon />
+                                                </IconButton>
+                                                <Grid container spacing={3} justifyContent='center' alignItems='space-around' flexDirection='column'>
+                                                        <Grid item md={12}>
+                                                                <TextField
+                                                                        id="outlined-required"
+                                                                        label="Task Title"
+                                                                        fullWidth
+                                                                        variant='outlined'
+                                                                        name='title'
+                                                                        value={title}
+                                                                        onChange={(e) => setTitle(e.target.value)}
+
                                                                 />
-                                                        </LocalizationProvider>
+                                                        </Grid>
+                                                        <Grid item md={12}>
+                                                                <TextField
+                                                                        id="outlined-required"
+                                                                        label="Task Deskcription"
+                                                                        fullWidth
+                                                                        variant='outlined'
+                                                                        multiline
+                                                                        maxRows={10}
+                                                                        value={description}
+                                                                        onChange={(e) => setDescription(e.target.value)}
 
+                                                                />
+                                                        </Grid>
+                                                        <Grid item md={12}>
+                                                                <TextField
+                                                                        id="outlined-required"
+                                                                        label="Task Priority"
+                                                                        fullWidth
+                                                                        select
+                                                                        variant='outlined'
+                                                                        value={priority}
+                                                                        onChange={(e) => setPriority(e.target.value)}
+
+                                                                >
+                                                                        <MenuItem value='High'>High</MenuItem>
+                                                                        <MenuItem value='Medium'>Medium</MenuItem>
+                                                                        <MenuItem value='Low'>Low</MenuItem>
+                                                                </TextField>
+                                                        </Grid>
+                                                        <Grid item md={12}>
+                                                                <LocalizationProvider dateAdapter={AdapterMoment}>
+                                                                        <DesktopDatePicker
+                                                                                label="Deadline"
+                                                                                inputFormat="MM/DD/YYYY"
+                                                                                value={deadline}
+                                                                                onChange={(newValue) => setDeadline(newValue)}
+                                                                                renderInput={(params) => <TextField {...params} fullWidth />}
+                                                                                minDate={deadline}
+                                                                        />
+                                                                </LocalizationProvider>
+
+
+                                                        </Grid>
 
                                                 </Grid>
-
-                                        </Grid>
-                                </DialogContent>
-                                <DialogActions>
-                                        <Button onClick={handleClose} variant="outlined" color="error">Cancel</Button>
-                                        <Button onClick={addTasks} variant="contained" color="primary">Submit</Button>
-                                </DialogActions>
-                        </Dialog>
-                        <ToastContainer />
+                                        </DialogContent>
+                                        <DialogActions>
+                                                <Button onClick={handleClose} variant="outlined" color="error">Cancel</Button>
+                                                <Button onClick={addTasks} variant="contained" color="primary">Submit</Button>
+                                        </DialogActions>
+                                </Dialog>
+                                <ToastContainer />
                         </Container>
                 </>
         )

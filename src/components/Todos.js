@@ -27,7 +27,8 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { useAuthUser } from 'react-auth-kit'
-const Todos = ({ task, filter }) => {
+
+const Todos = ({ task, getTodos }) => {
         // console.log('Todosfilter',filter )
         const auth = useAuthUser()
         // console.log(task);
@@ -102,7 +103,8 @@ const Todos = ({ task, filter }) => {
                 try {
                         console.log("deleteTask", id);
                         const res = await axios.delete(`${process.env.REACT_APP_API_URL}api/todo/${id}`, config)
-                        handleClose();
+                        handleClose()
+                        getTodos()
                 } catch (err) {
                         alert("Error: " + err.message);
                 }
@@ -141,6 +143,7 @@ const Todos = ({ task, filter }) => {
                                 console.log(res);
                                 toast.success("Task updated successfully");
                                 handleCloseEdit();
+                                getTodos()
                         } catch (err) {
                                 alert(err.message);
                         }
@@ -162,7 +165,7 @@ const Todos = ({ task, filter }) => {
                                         'ngrok-skip-browser-warning': 'any'
                                 }
                         }
-                        const res = await axios.put(`${process.env.REACT_APP_API_URL}api/todo/${id}`, task, config)
+                        const res = await axios.post(`${process.env.REACT_APP_API_URL}api/todo/${id}`, task, config)
                         console.log(res);
                         toast.success("Task Completed");
                         handleCloseEdit();
@@ -183,7 +186,11 @@ const Todos = ({ task, filter }) => {
                                                 <div style={styles.header}>
                                                         <Typography variant="h5">{task.title}</Typography>
 
-                                                        <Chip label={task.priority} />
+                                                        {
+                                                                (task.priority=='High'&&<Chip label={task.priority} color="error" variant="info" />)||
+                                                                (task.priority=='Medium'&&<Chip label={task.priority} color="warning" variant="filled" />)||
+                                                                (task.priority=='Low'&&<Chip label={task.priority} color="primary" variant="filled" />)
+                                                        }
                                                 </div>
                                                 <div style={styles.checkbox}>
                                                         <Checkbox
@@ -191,6 +198,7 @@ const Todos = ({ task, filter }) => {
                                                                 onChange={handleChangeCheck}
                                                                 inputProps={{ "aria-label": "controlled" }}
                                                                 onClick={()=>completeTask(task._id)}
+                                                                disabled={new Date()>new Date(task.deadline)}
                                                         />
                                                         <div>
                                                                 <Typography variant="h6">{task.description}</Typography>
@@ -207,7 +215,7 @@ const Todos = ({ task, filter }) => {
                                                         >
                                                                 <DeleteIcon />
                                                         </Button>
-                                                        <Button variant="outlined" onClick={handleClickOpenEdit}>
+                                                        <Button variant="outlined" onClick={handleClickOpenEdit} disabled={new Date()>new Date(task.deadline)}>
                                                                 <EditIcon />
                                                         </Button>
                                                 </div>
