@@ -7,7 +7,7 @@ import html2canvas from 'html2canvas'
 
 
 
-const PieChart = ({ data, options }) => {
+const PieChart = ({ data }) => {
 
 
         ChartJS.register(ArcElement, Tooltip, Legend);
@@ -22,7 +22,6 @@ const PieChart = ({ data, options }) => {
                         pdf.addImage(imgData, 'JPEG', 20, 20)
                         pdf.save('Piechart.pdf')
                 })
-                console.log('complete')
         }
 
         return (
@@ -40,7 +39,6 @@ const PieChart = ({ data, options }) => {
                                 <Grid item>
                                         <Pie data={data}
                                                 style={{ align: 'center' }}
-                                                options={options}
                                                 id='chart'
                                         />
                                 </Grid>

@@ -83,9 +83,9 @@ const Login = () => {
 
                         }
                     )
-                    // console.log('success')
+
                     navigate('/')
-                    // console.log('after navigate')
+                    
                 } else {
                     toast.error('Invalid redentials', {
                         position: "top-center",

@@ -1,27 +1,11 @@
-import { useState } from "react";
-import {
-        Card,
-        CardContent,
-        Typography,
-        Chip,
-        Checkbox,
-        Grid,
-        Button,
-        TextField,
-        MenuItem,
-        Divider
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Container from "@mui/material/Container";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
+import { useState} from "react";
 import axios from "axios";
 import moment from "moment";
+import {Card,CardContent,Typography,Chip, Checkbox, Grid, Button,TextField,MenuItem, Divider, Dialog,DialogActions,DialogContent,DialogTitle,Container,} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 import { ToastContainer, toast } from "react-toastify";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -29,9 +13,9 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { useAuthUser } from 'react-auth-kit'
 
 const Todos = ({ task, getTodos }) => {
-        // console.log('Todosfilter',filter )
+       
         const auth = useAuthUser()
-        // console.log(task);
+       
         const styles = {
                 card: {
                         margin: "3rem 0",
@@ -112,7 +96,7 @@ const Todos = ({ task, getTodos }) => {
         };
 
         const updateTask = async (id) => {
-                console.log("update", id);
+               
                 if (title === "") {
                         toast.error("Please enter a title");
                         return;
@@ -129,9 +113,9 @@ const Todos = ({ task, getTodos }) => {
                         toast.error("Please select deadline at least one day above current date");
                         return;
                 } else {
-                        console.log("To do data added succesfully");
+                        
                         let task = { title, description, priority };
-                        console.log(task);
+                        
                         try {
                                 const config = {
                                         headers: {
@@ -154,10 +138,10 @@ const Todos = ({ task, getTodos }) => {
         }
 
         const completeTask = async (id) => {
-                console.log(!checked)
+              
                 let isComplete = !checked
                 let task = { isComplete };
-                console.log(task);
+
                 try {
                         const config = {
                                 headers: {
@@ -166,10 +150,9 @@ const Todos = ({ task, getTodos }) => {
                                 }
                         }
                         const res = await axios.post(`${process.env.REACT_APP_API_URL}api/todo/${id}`, task, config)
-                        console.log(res);
-                        // toast.success("Task Completed");
+                        
                         handleCloseEdit();
-                        // getTodos()
+
                 } catch (err) {
                         alert(err.message);
                 }
