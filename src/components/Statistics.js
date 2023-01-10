@@ -58,17 +58,17 @@ const Statistics = () => {
         task =>
           task.title.toLowerCase().includes(query.toLowerCase()) ||
           task.description.toLowerCase().includes(query.toLowerCase()) ||
-          task.priority.toLowerCase().includes(query.toLowerCase())||
+          task.priority.toLowerCase().includes(query.toLowerCase()) ||
           moment(task.deadline).format('DD-MM-YYYY').includes(query)
       );
 
       return filtered
-    
+
     }
     return tasks
   }
 
-  const handleQuery=(e)=>{
+  const handleQuery = (e) => {
     setQuery(e.target.value)
   }
 
@@ -97,11 +97,19 @@ const Statistics = () => {
   }
 
 
+  const option = {
+   datalabels:{
+    
+   }
+  }
+
+
   return (
     <div>
       <PieChart
 
         data={data}
+        option={option}
       />
       <TaskTable
         query={query}

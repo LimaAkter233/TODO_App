@@ -2,8 +2,6 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Grid, Paper, Avatar, TextField, Button, Typography, Link, IconButton, InputAdornment, FormControl, InputLabel, OutlinedInput } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -85,9 +83,9 @@ const Login = () => {
 
                         }
                     )
-                    console.log('success')
+                    // console.log('success')
                     navigate('/')
-                    console.log('after navigate')
+                    // console.log('after navigate')
                 } else {
                     toast.error('Invalid redentials', {
                         position: "top-center",

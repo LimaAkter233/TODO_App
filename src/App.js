@@ -14,14 +14,14 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 function App() {
 
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'light',
-      action: {
-        hover: '#fff'
-      }
-    },
-  });
+  // const darkTheme = createTheme({
+  //   palette: {
+  //     mode: 'light',
+  //     action: {
+  //       hover: '#fff'
+  //     }
+  //   },
+  // });
 
   let theme = createTheme()
 
