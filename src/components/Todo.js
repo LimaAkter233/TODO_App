@@ -102,7 +102,7 @@ const Todo = ({ filter, handleFilter, getTodos }) => {
                                 }}>
                                         <CardContent>
                                                 <div style={{ display: 'flex', justifyContent: "space-between", alignItems: "center", }}>
-                                                        <FormControl sx={{
+                                                        {<FormControl sx={{
                                                                 minWidth: 150,
                                                         }}>
                                                                 <InputLabel id="demo-simple-select-label" shrink>Filter Tasks</InputLabel>
@@ -117,10 +117,10 @@ const Todo = ({ filter, handleFilter, getTodos }) => {
 
                                                                         <MenuItem value='Ongoing'>Ongoing </MenuItem>
                                                                         <MenuItem value='Completed'>Completed</MenuItem>
-                                                                        {/* <MenuItem value='Pending'>Pending Tasks</MenuItem> */}
+                                                                        <MenuItem value='Failed'>Failed</MenuItem>
                                                                         <MenuItem value='All'>All</MenuItem>
                                                                 </Select>
-                                                        </FormControl>
+                                                        </FormControl>}
                                                         <Button variant="contained" onClick={handleClickOpen} sx={{
                                                                 m: 2,
 

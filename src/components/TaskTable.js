@@ -65,7 +65,7 @@ const TaskTable = ({ tasks, handleSearch, query, handleQuery }) => {
       <Paper style={{ margin: '5rem 3rem' }}>
         <TextField
           type="text"
-          palceholder="Search"
+          placeholder="Search"
           value={query}
           onChange={handleQuery}
           style={{ padding: '2rem'}}

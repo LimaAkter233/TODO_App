@@ -45,9 +45,11 @@ const Home = () => {
 
   }
 
-  const ongoing = tasks.filter((val) => val.isComplete == false)
+  const ongoing = tasks.filter((val) => (val.isComplete == false && (new Date(val.deadline) > new Date())))
 
   const completed = tasks.filter((val) => val.isComplete == true)
+
+  const failed = tasks.filter((val) => (val.isComplete == false && (new Date(val.deadline) < new Date())))
 
   // console.log('Ongoing', ongoing)
   return (
@@ -67,6 +69,7 @@ const Home = () => {
           filter={filter}
           handleFilter={handleFilter}
           getTodos={getTodos}
+          tasks={tasks}
         />
       </Grid>
       <br /><br />
@@ -92,6 +95,13 @@ const Home = () => {
                 />
               )}
               {filter === 'Completed' && completed.map((task, i) =>
+                <Todos
+                  key={task._id}
+                  task={task}
+                  getTodos={getTodos}
+                />
+              )}
+               {filter === 'Failed' && failed.map((task, i) =>
                 <Todos
                   key={task._id}
                   task={task}

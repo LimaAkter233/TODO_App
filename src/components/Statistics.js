@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useAuthUser } from 'react-auth-kit'
 import PieChart from './PieChart'
 import TaskTable from './TaskTable'
-
+import moment from 'moment'
 
 const Statistics = () => {
 
@@ -51,14 +51,15 @@ const Statistics = () => {
 
   function handleSearch(query) {
     // update search value
-    
+    console.log(query)
 
     if (query) {
       const filtered = tasks.filter(
         task =>
-          task.title.toLowerCase().includes(query) ||
-          task.description.toLowerCase().includes(query) ||
-          task.priority.toLowerCase().includes(query)
+          task.title.toLowerCase().includes(query.toLowerCase()) ||
+          task.description.toLowerCase().includes(query.toLowerCase()) ||
+          task.priority.toLowerCase().includes(query.toLowerCase())||
+          moment(task.deadline).format('DD-MM-YYYY').includes(query)
       );
 
       return filtered

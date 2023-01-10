@@ -169,6 +169,7 @@ const Todos = ({ task, getTodos }) => {
                         console.log(res);
                         toast.success("Task Completed");
                         handleCloseEdit();
+                        getTodos()
                 } catch (err) {
                         alert(err.message);
                 }
