@@ -5,7 +5,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Statistics from './components/Statistics';
 import Header from './components/Header';
-// import Errror from './components/Errror';
+import Errror from './components/Errror';
 // import SignInOutContainer from './containers/index';
 import { Routes, Route } from "react-router-dom"
 import { RequireAuth } from 'react-auth-kit'
@@ -43,7 +43,7 @@ function App() {
           <Route path='/stats' element={<RequireAuth loginPath='/login'>
             <Statistics />
           </RequireAuth>} />
-          {/* <Route path='*' element={<Errror />} /> */}
+          <Route path='*' element={<Errror />} />
         </Routes>
       </Box>
     </ThemeProvider>

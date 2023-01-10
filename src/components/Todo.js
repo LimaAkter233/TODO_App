@@ -1,24 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, {useState } from 'react'
 import axios from 'axios';
-import { Grid, TextField, MenuItem, Divider } from '@mui/material'
+import {Grid,TextField, MenuItem, Divider,IconButton,Button,Dialog,DialogActions,DialogContent,DialogTitle,Container,Card,CardContent,InputLabel,FormControl} from '@mui/material'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
 import { useAuthUser } from 'react-auth-kit'
 import Select from '@mui/material/Select';
 import { ToastContainer, toast } from 'react-toastify'
-import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -94,7 +82,7 @@ const Todo = ({ filter, handleFilter, getTodos }) => {
 
         return (
                 <>
-                        <Container >
+                        <Container>
 
                                 <Card>
                                         <CardContent>
