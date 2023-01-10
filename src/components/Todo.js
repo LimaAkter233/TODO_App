@@ -94,12 +94,9 @@ const Todo = ({ filter, handleFilter, getTodos }) => {
 
         return (
                 <>
-                        <Container maxWidth="xl">
+                        <Container >
 
-                                <Card container maxWidth='xl' sx={{
-
-
-                                }}>
+                                <Card>
                                         <CardContent>
                                                 <div style={{ display: 'flex', justifyContent: "space-between", alignItems: "center", }}>
                                                         {<FormControl sx={{

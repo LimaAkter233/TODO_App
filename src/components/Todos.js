@@ -73,7 +73,7 @@ const Todos = ({ task, getTodos }) => {
 
 
         let today = new Date();
-
+       
         const handleChangeCheck = (event) => {
                 setChecked(event.target.checked);
         };
@@ -167,9 +167,9 @@ const Todos = ({ task, getTodos }) => {
                         }
                         const res = await axios.post(`${process.env.REACT_APP_API_URL}api/todo/${id}`, task, config)
                         console.log(res);
-                        toast.success("Task Completed");
+                        // toast.success("Task Completed");
                         handleCloseEdit();
-                        getTodos()
+                        // getTodos()
                 } catch (err) {
                         alert(err.message);
                 }
@@ -181,7 +181,7 @@ const Todos = ({ task, getTodos }) => {
 
         return (
                 <div>
-                        <Container maxWidth="xl">
+                        <Container >
                                 <Card style={styles.card}>
                                         <CardContent>
                                                 <div style={styles.header}>
@@ -202,7 +202,7 @@ const Todos = ({ task, getTodos }) => {
                                                                 disabled={new Date()>new Date(task.deadline)}
                                                         />
                                                         <div>
-                                                                <Typography variant="h6" style={{ textDecoration: task.isComplete ? "line-through" : "" }} >{task.description}</Typography>
+                                                                <Typography variant="h6" style={{ textDecoration: checked ? "line-through" : "" }} >{task.description}</Typography>
                                                         </div>
                                                 </div>
                                                 <div style={styles.content}>
