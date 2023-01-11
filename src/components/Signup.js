@@ -7,11 +7,12 @@ import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 const Signup = () => {
-    const history = useNavigate();
-
+ 
+    const navigate  = useNavigate()
     const [inpval, setInpval] = useState({
         name: "",
         email: "",
+        confirmPassword: "",
         password: ""
     })
 
@@ -37,10 +38,10 @@ const Signup = () => {
 
     }
 
-    const addData = (e) => {
+    const addRegister = async(e) => {
         e.preventDefault();
 
-        const { name, email, date, password } = inpval;
+        const { name, email, password, confirmPassword } = inpval;
 
         if (name === "") {
             toast.error(' name field is requred!',{
@@ -54,11 +55,9 @@ const Signup = () => {
              toast.error('plz enter valid email addres',{
                 position: "top-center",
             });
-        } else if (date === "") {
-             toast.error('date field is requred',{
-                position: "top-center",
-            });
-        } else if (password === "") {
+        } 
+    
+         else if (password === "") {
              toast.error('password field is requred',{
                 position: "top-center",
             });
@@ -66,10 +65,49 @@ const Signup = () => {
              toast.error('password length greater five',{
                 position: "top-center",
             });
-        } else {
-            console.log("data added succesfully");
-            history("/login")
-            localStorage.setItem("usertodo",JSON.stringify([...data,inpval]));
+        }
+            else if (password!== confirmPassword) {
+                toast.error('password do not match',{
+                   position: "top-center",
+               });
+        } 
+        else {
+            
+            
+            try {
+                const res = await axios.post(`${process.env.REACT_APP_API_URL}api/user/register`, {
+                    name,
+                     email,
+                    password,
+                    confirmPassword
+                })
+
+                console.log(res);
+                navigate ('/login')
+                // if(res.data.email){
+                //     signIn(
+                //         {
+                //             token: res.data.token,
+                //             expiresIn:3600,
+                //             tokenType: "Bearer",
+                //             authState: res.data,
+                            
+                //         }
+                //     )
+                //     console.log('success')
+                //     navigate ('/')
+                //     console.log('after navigate')
+                // }else {
+                //     toast.error('Invalid redentials', {
+                //         position: "top-center",
+                //     });
+                // }
+            } catch (err) {
+                 alert(err.message);
+            }
+            // console.log("data added succesfully");
+            // history("/login")
+            // localStorage.setItem("usertodo",JSON.stringify([...data,inpval]));
 
         }
 
@@ -114,9 +152,9 @@ const Signup = () => {
                     <TextField fullWidth label='Email' name='email' placeholder="Enter your email" onChange={getdata} style={marginStyle} />
 
                     <TextField type='password' fullWidth label='Password' name='password' placeholder="Enter your password" onChange={getdata} style={marginStyle}/>
-                    <TextField  type='password' fullWidth label='Confirm Password' placeholder="Confirm your password" onChange={getdata} style={marginStyle}/>
+                    <TextField  type='password' fullWidth label='Confirm Password' name='confirmPassword' placeholder="Confirm your password" onChange={getdata} style={marginStyle}/>
                     
-                    <Button type='submit' onClick={addData} variant='contained' color='primary' style={marginStyle}>Sign up</Button>
+                    <Button type='submit' onClick={addRegister} variant='contained' color='primary' style={marginStyle}>Sign up</Button>
                 </form>
             </Paper>
             <ToastContainer />
