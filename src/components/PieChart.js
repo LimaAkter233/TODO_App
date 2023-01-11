@@ -22,7 +22,6 @@ const PieChart = ({ data }) => {
                         pdf.addImage(imgData, 'JPEG', 20, 20)
                         pdf.save('Piechart.pdf')
                 })
-                console.log('complete')
         }
 
         return (

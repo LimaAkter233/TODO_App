@@ -43,43 +43,38 @@ const Statistics = () => {
 
   const failed = tasks.filter((val) => (val.isComplete == false && (new Date(val.deadline) < new Date()))).length
 
-  console.log(tasks)
 
-  // let curr = tasks.filter((val) => (val.isComplete == false && (new Date(val.deadline) > new Date())))
-
-  // console.log(curr)
-
-  function handleSearch(query) {
-    // update search value
-    console.log(query)
+  const handleSearch = (query) => {
 
     if (query) {
       const filtered = tasks.filter(
         task =>
           task.title.toLowerCase().includes(query.toLowerCase()) ||
           task.description.toLowerCase().includes(query.toLowerCase()) ||
-          task.priority.toLowerCase().includes(query.toLowerCase())||
+          task.priority.toLowerCase().includes(query.toLowerCase()) ||
           moment(task.deadline).format('DD-MM-YYYY').includes(query)
       );
 
       return filtered
-    
+
     }
     return tasks
   }
 
-  const handleQuery=(e)=>{
+  const handleQuery = (e) => {
     setQuery(e.target.value)
   }
 
-
+  let ongPercentage = Math.floor((ongoing / tasks.length) * 100)
+  let comPercentage = Math.floor((completed / tasks.length) * 100)
+  let failPercentage = Math.floor((failed / tasks.length) * 100)
 
 
   const data = {
-    labels: ['Ongoing', 'Completed', 'Failed'],
+    labels: [`Ongoing:${ongPercentage}%`, `Completed:${comPercentage}%`, `Failed:${failPercentage}%`],
     datasets: [
       {
-        label: '# of tasks',
+        label: 'no. of tasks',
         data: [ongoing, completed, failed],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -97,10 +92,10 @@ const Statistics = () => {
   }
 
 
+
   return (
     <div>
       <PieChart
-
         data={data}
       />
       <TaskTable
